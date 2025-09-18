@@ -138,6 +138,10 @@ Thumbs.db
 test-api.js
 validate-poc.js
 
+# Frontend build files
+frontend/build/
+frontend/dist/
+
 # Build outputs
 build/
 dist/
