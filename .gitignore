@@ -138,6 +138,13 @@ Thumbs.db
 test-api.js
 validate-poc.js
 
+# Documentation and setup files (as requested)
+docs/
+*.md
+LICENSE
+start-demo.bat
+start-demo.sh
+
 # Frontend build files
 frontend/build/
 frontend/dist/
