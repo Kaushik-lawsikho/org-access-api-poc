@@ -19,6 +19,12 @@ Course.belongsTo(Brand, { foreignKey: 'brandId', as: 'brand' });
 Organization.hasMany(User, { foreignKey: 'organizationId', as: 'users'});
 User.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 
+User.hasMany(Course, { foreignKey: 'createdBy', as: 'createdCourses'});
+Course.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
+
+User.hasMany(Course, { foreignKey: 'updatedBy', as: 'updatedCourses'});
+Course.belongsTo(User, { foreignKey: 'updatedBy', as: 'updater' });
+
 Organization.hasMany(ApiKey, { foreignKey: 'organizationId', as: 'apiKeys'});
 ApiKey.belongsTo(Organization, { foreignKey: 'organizationId', as: 'organization' });
 

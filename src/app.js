@@ -2,10 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const authRoutes = require('./routes/authRoutes')
+const userRoutes = require('./routes/userRoutes')
 require('dotenv').config();
 
 const courseRoutes = require('./routes/courseRoutes');
 const orgRoutes = require('./routes/orgRoutes');
+const { swaggerUi, swaggerUiOptions, swaggerDocument } = require('./config/swagger');
 const { version } = require('os');
 
 const app = express();
@@ -19,15 +22,23 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.json({ 
         message: 'Organization Access API is running',
-        version: '1.0.0',
+        version: '2.0.0',
+        documentation: '/api-docs',
         endpoints: {
+            auth: '/api/auth',
+            users: '/api/users',
             courses: '/api/courses',
             organization: '/api/org/info'
         }
     });
 });
 
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerUiOptions));
+
 app.use('/api/courses', courseRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes)
 app.use('/api/org', orgRoutes);
 
 app.use((req, res) => {
